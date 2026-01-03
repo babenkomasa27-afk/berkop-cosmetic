@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>LUMÉA — Luxury Cosmetics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: #f7f7f7;
+  color: #333;
+}
+header {
+  background: white;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+header h1 {
+  letter-spacing: 2px;
+  font-weight: 300;
+}
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 30px;
+}
+.product {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  opacity: 0.5;
+}
+.product.available {
+  opacity: 1;
+}
+.product img {
+  width: 100%;
+  border-radius: 10px;
+}
+.stars {
+  color: gold;
+  font-size: 14px;
+}
+.sold {
+  color: #999;
+  font-size: 14px;
+}
+.button {
+  background: linear-gradient(135deg, #f5c6d6, #e7b7c8);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.button:hover {
+  opacity: 0.9;
+}
+.hidden {
+  display: none;
+}
+.gallery img {
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 12px;
+}
+select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popup div {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 300px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>LUMÉA</h1>
+  <div>Luxury Cosmetics</div>
+</header>
+
+<div class="container">
+
+<h2>Коллекция</h2>
+
+<div class="products">
+  <div class="product">
+    <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa">
+    <div class="stars">★★★★★</div>
+    <div class="sold">Распродано</div>
+  </div>
+
+  <div class="product">
+    <img src="https://images.unsplash.com/photo-1612817159623-0399784fd0ce">
+    <div class="stars">★★★★☆</div>
+    <div class="sold">Распродано</div>
+  </div>
+
+  <div class="product available" onclick="openProduct()">
+    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9">
+    <div class="stars">★★★★★</div>
+    <div>Помада LUMÉA ICON</div>
+    <div>В наличии: 20</div>
+  </div>
+</div>
+
+<div id="product" class="hidden">
+  <h2>LUMÉA ICON</h2>
+
+  <select onchange="changeShade(this.value)">
+    <option value="yuki">Юки-какашка</option>
+    <option value="dasha">Даша Крылова</option>
+  </select>
+
+  <div class="gallery" id="gallery">
+    <img src="https://images.unsplash.com/photo-1583912268181-99f1f39c98d1">
+    <img src="https://i.imgflip.com/4/4t0m5.jpg">
+  </div>
+
+  <p>
+    Очень качественная помада, которая поднимает настроение,  
+    умеет смешить и иногда разговаривает.  
+    С ней можно поговорить, а не только накрасить губы.  
+    При желании может стать вашим другом на ближайшие 10 лет.
+  </p>
+
+  <button class="button" onclick="buy()">Купить</button>
+</div>
+
+</div>
+
+<div id="popup" class="popup hidden">
+  <div>
+    <p><strong>Зачем ты нажимаешь на эту кнопку?<br>У тебя всё равно нету денег.</strong></p>
+    <button class="button" onclick="closePopup()">Поняла</button>
+  </div>
+</div>
+
+<script>
+function openProduct() {
+  document.getElementById("product").classList.remove("hidden");
+  window.scrollTo({top: document.body.scrollHeight, behavior: "smooth"});
+}
+
+function changeShade(shade) {
+  const gallery = document.getElementById("gallery");
+  if (shade === "yuki") {
+    gallery.innerHTML = `
+      <img src="https://images.unsplash.com/photo-1583912268181-99f1f39c98d1">
+      <img src="https://i.imgflip.com/4/4t0m5.jpg">
+    `;
+  } else {
+    gallery.innerHTML = `
+      <img src="https://images.unsplash.com/photo-1583912268181-99f1f39c98d1">
+      <img src="YOUR_PHOTO_HERE">
+    `;
+  }
+}
+
+function buy() {
+  document.getElementById("popup").classList.remove("hidden");
+}
+
+function closePopup() {
+  document.getElementById("popup").classList.add("hidden");
+}
+</script>
+
+</body>
+</html>
